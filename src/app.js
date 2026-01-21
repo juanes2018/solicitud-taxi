@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -5,7 +6,10 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send(`
+        <h1>API REST para Solicitud de Servicio de Taxis</h1>
+<p>Esto es una Aplicacion node.js con express.js.</p>
+<p>Corre en el Puerto: ${PORT}</p>`);
 
     
 } );
@@ -17,8 +21,9 @@ app.get('/', (req, res) => {
 
 
 const PORT = process.env.PORT || 3000;
+console.log(PORT);
 
 
 app.listen( PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Servidor: http://localhost:${PORT}`);
 } );
