@@ -5,6 +5,12 @@ const app = express();
 
 
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+
+
+
+
 app.get('/', (req, res) => {
     res.send(`
         <h1>API REST para Solicitud de Servicio de Taxis</h1>
