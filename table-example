@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('passenger', 'driver') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS trips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    passengerId INT NOT NULL,
+    driverId INT,
+    origin TEXT NOT NULL,
+    destination TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (
+        status IN ('pending', 'accepted', 'in_progress', 'completed', 'cancelled')
+    ),
+    price DECIMAL(10, 2),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_passenger FOREIGN key (passengerId) REFERENCES users(id) ON DELETE CASCADE,
+
+
+    CONSTRAINT fk_driver FOREIGN key (driverId) REFERENCES users(id) ON DELETE SET NULL
+
+);
+
+CREATE USER 'solicitud_taxi'@'localhost' IDENTIFIED BY 'Tofabi#900';
+GRANT ALL PRIVILEGES ON solicitud_taxi.* TO 'solicitud_taxi'@'localhost';
+FLUSH PRIVILEGES;
+
