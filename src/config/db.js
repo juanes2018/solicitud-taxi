@@ -19,7 +19,7 @@ const testConnection = async () => {
         console.log('Conexion a la Base de Datos');
         connection.release();
     } catch (error) {
-        console.eroor('Error de conexion a la base de datos', error)
+        console.error('Error de conexion a la base de datos', error)
     }
 };
 

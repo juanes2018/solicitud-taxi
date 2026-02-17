@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
   //const authHeader = req.headers.authorization; // 👈 minúsculas
+ 
+
   const authHeader = req.headers['authorization'] || req.headers['Authorization'];
 
   if (!authHeader) {
@@ -13,9 +15,12 @@ function authenticateToken(req, res, next) {
 
   const token = authHeader.split(' ')[1]; // Bearer TOKEN
 
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // 👈 AQUÍ guardamos el usuario del JWT
+    console.log('Usuario completo desde JWT:', decoded);
+    console.log('ID de usuario desde JWT:', decoded.id); 
     next();
   } catch (error) {
     return res.status(403).json({
